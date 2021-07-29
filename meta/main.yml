@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  author: Sergey Evseev
+  description: Ansible role to deploy vminsert
+  company: Personal project
+  role_name: vminsert
+  namespace: ageres210784
+
+  license: Apache
+
+  min_ansible_version: 2.8
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - focal
+
+  galaxy_tags: [prometheus, victoriametrics, vminsert, monitoring]
+
+dependencies: []
+# List your role dependencies here, one per line. Be sure to remove the '[]' above,
+# if you add dependencies to this list.

@@ -1,0 +1,21 @@
+---
+- name: Start docker vminsert container
+  docker_compose:
+    state: present
+    project_name: vminsert
+    definition:
+      version: '2'
+      services:
+        alertmanager:
+          image: "{{ vminsert_docker_image }}"
+          container_name: "{{ vminsert_container_name }}"
+          command: "{{ vminsert_command }}"
+          ports:
+            - "127.0.0.1:8480:8480"
+          hostname: "{{ vminsert_container_name }}"
+          restart: always
+          labels: "{{ vminsert_docker_labels }}"
+      networks:
+        default:
+          external:
+            name: "{{ vminsert_docker_network_name }}"
