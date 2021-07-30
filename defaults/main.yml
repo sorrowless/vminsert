@@ -4,6 +4,7 @@ vminsert_container_name: vminsert
 vminsert_docker_image: "victoriametrics/vminsert:v1.63.0-cluster"
 vminsert_docker_labels:
   - vminsert
+vminsert_address: "127.0.0.1:"
 
 vminsert_command:
   - '--storageNode={{ ansible_host }}:8400'
