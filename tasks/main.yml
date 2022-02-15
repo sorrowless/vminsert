@@ -11,7 +11,7 @@
           container_name: "{{ vminsert_container_name }}"
           command: "{{ vminsert_command }}"
           ports:
-            - "{{ vminsert_address }}8480:8480"
+            - "{{ vminsert_address }}:8480:8480"
           hostname: "{{ vminsert_container_name }}"
           restart: always
           labels: "{{ vminsert_docker_labels }}"
