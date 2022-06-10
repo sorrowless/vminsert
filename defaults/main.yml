@@ -1,7 +1,7 @@
 ---
 vminsert_docker_network_name: prom_network
 vminsert_container_name: vminsert
-vminsert_docker_image: "victoriametrics/vminsert:v1.63.0-cluster"
+vminsert_docker_image: "victoriametrics/vminsert:v1.77.2-cluster"
 vminsert_docker_labels:
   - vminsert
 vminsert_address: "127.0.0.1"
