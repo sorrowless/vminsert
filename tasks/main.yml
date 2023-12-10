@@ -6,7 +6,7 @@
     definition:
       version: '2'
       services:
-        alertmanager:
+        vminsert:
           image: "{{ vminsert_docker_image }}"
           container_name: "{{ vminsert_container_name }}"
           command: "{{ vminsert_command }}"
@@ -19,3 +19,45 @@
         default:
           external:
             name: "{{ vminsert_docker_network_name }}"
+  when: not vminsert_swarm_cluster or vm_swarm_manager is undefined
+
+- name: Deploy vminsert to docker swarm
+  block:
+    - name: Ensure pip installation
+      package:
+        name: "python3-pip"
+        state: present
+
+    - name: Install newer version of pip itself
+      pip:
+        name: "pip"
+        state: latest
+        executable: pip3
+
+    - name: Install Docker Compose from pip
+      pip:
+        name: "jsondiff"
+        state: present
+        executable: pip3
+
+    - name: Deploy docker vminsert container in swarm
+      community.docker.docker_stack:
+        state: present
+        name: "{{ vminsert_stack_name }}"
+        compose:
+          - version: '3.5'
+            services:
+              vminsert:
+                image: "{{ vminsert_docker_image }}"
+                command: "{{ vminsert_command }}"
+                hostname: "{{ vminsert_container_name }}"
+                labels: "{{ vminsert_docker_labels }}"
+                deploy: "{{ vminsert_swarm_deploy }}"
+            networks:
+              default:
+                external:
+                  name: "{{ vminsert_docker_network_name }}"
+  delegate_to: "{{ vm_swarm_manager }}"
+  when:
+    - vminsert_swarm_cluster
+    - vm_swarm_manager is defined
