@@ -34,7 +34,7 @@
         state: latest
         executable: pip3
 
-    - name: Install Docker Compose from pip
+    - name: Install jsondiff from pip
       pip:
         name: "jsondiff"
         state: present
