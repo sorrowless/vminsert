@@ -1,10 +1,9 @@
 ---
 - name: Start docker vminsert container
-  docker_compose:
+  community.docker.docker_compose_v2:
     state: present
     project_name: vminsert
     definition:
-      version: '2'
       services:
         vminsert:
           image: "{{ vminsert_docker_image }}"
@@ -17,8 +16,8 @@
           labels: "{{ vminsert_docker_labels }}"
       networks:
         default:
-          external:
-            name: "{{ vminsert_docker_network_name }}"
+          external: true
+          name: "{{ vminsert_docker_network_name }}"
   when: not vminsert_swarm_cluster or vm_swarm_manager is undefined
 
 - name: Deploy vminsert to docker swarm
