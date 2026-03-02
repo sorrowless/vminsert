@@ -67,6 +67,10 @@
                 hostname: "{{ vminsert_container_name }}"
                 labels: "{{ vminsert_docker_labels }}"
                 deploy: "{{ vminsert_swarm_deploy }}"
+                ulimits:
+                  nofile:
+                    soft: 65536
+                    hard: 65536
             networks:
               default:
                 external:
